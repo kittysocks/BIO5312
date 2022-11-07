@@ -1,0 +1,134 @@
+```{r global_options, include=FALSE}
+library(knitr)
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE, fig.align="center", fig.height=4.5, fig.width=4.5)
+```
+---
+output: html_document
+---
+## Homework 2
+#### BIO5312
+#### Due 9/12/17 by 5:30 pm
+
+**Molly Miraglia**
+
+<br>
+This homework again uses the **sparrows.csv** dataset we used in homework 1. To begin, set your working directory (`Session -> Set Working Directory`) to the appropriate folder on your computer where the dataset is located, and read the dataset into R. You may also use the command `setwd()` if you are comfortable.
+
+```{r}
+sparrows <- read.csv("sparrows.csv")
+```
+
+For each question, show your code and its output (i.e. do not add either `echo=FALSE` or `results="hide"` to your R chunk settings!). **Complete this assignment using `ggplot2` for visualization and `dplyr` with the `%>%` operator for data manipulation. Do not use base R indexing or plotting.** 
+
+
+<br><br>
+
+### Question 1 (5 pts)
+Repeat question 3c from homework 1 using `dplyr`: Determine the sex, age, and survival status for the bird with the longest and shortest wingspread. Complete this task in *1 line of code*.
+
+```{r}
+### Enter your code here.
+# # For reference, question 3c:
+# Use​ ​logical​ ​indexing​ ​and​ ​the​ ​functions​ ​min()​ ​and​ ​max()​ ​to​ ​determine​ ​the​ ​sex,​ ​age, and​ ​survival​ ​status​ ​for​ ​the​ ​bird​ ​with​ ​the​ ​longest​ ​and​ ​shortest wingspread
+
+longest_w <- sparrows %>%
+  filter(Wingspread == max(Wingspread)) %>%
+  select(Sex,Age,Survival)
+
+print(longest_w) #Longest wingspread stats
+
+shortest_w <-sparrows %>%
+  filter(Wingspread == min(Wingspread)) %>%
+  select(Sex,Age,Survival)
+
+print(shortest_w) #Shortest wingspread stats
+```
+
+**Obviously it's easier to use dplyr than my old code from HW1**
+**It's much shorter and less ugly (see homework1.R) **
+
+<br><br>
+
+### Question 2 (5 pts)
+
+Make a scatterplot of sparrow skull lengths (response variable) against sparrow skull widths (explanatory variable). Make two versions of this plot:
+
+  + Set the point *color* based on wingspread
+  + Set the point *size* based on wingspread. You may wish to include the `alpha` parameter when calling `geom_point()` for this plot.
+
+```{r}
+### Enter your code here.
+
+skull_scatterplot <- sparrows %>%
+  ggplot(aes(x=Skull_Length,y=Skull_Width)+geom_point)
+skull_scatterplot
+
+```
+
+<br><br>
+
+### Question 3
+
+<br>
+**Question 3a (5 pts).** Use `ggplot2` to make density plots (*hint: use the `alpha` parameter*) showing bird Weights for the Alive and Dead birds. 
+```{r}
+### Enter your code here.
+```
+
+
+
+<br>
+**Question 3b (5 pts).** We are also interested in viewing "bird BMI" (defined for birds as weight divided by length squared, or $weight/(length^2)$). Create a new BMI column in the sparrows data, and then make density plots of BMI for Alive vs Dead birds. Do you think bird BMI influenced survival? Explain why or why not in 1-2 sentences.
+```{r}
+### Enter your code here.
+```
+
+**Explain why (not) BMI influenced survival here.**
+
+<br><br>
+
+### Question 4
+
+<br>
+**Question 4a (5 pts).** Use `dplyr` to summarize the mean and standard deviation of Tarsus lengths between Sex groupings (i.e. male and female). Your result should be a data frame with 2 rows. 
+
+```{r}
+### Enter your code here.
+```
+
+<br>
+**Question 4b (5 pts).** Now, use `dplyr` to summarize the mean and standard deviation of Tarsus lengths for all combinations of Sex and Age. Have the output displayed according to *descending* Tarsus length standard deviations. Your result should be a data frame with 4 rows.
+
+```{r}
+### Enter your code here.
+```
+
+
+<br>
+**Question 4c (10 pts).** Use `ggplot2` to generate a line plot showing the differences between the mean Tarsus Length across sexes, showing separate lines for young vs adult birds. In other words, create a plot similar to [this one](http://sjspielman.org/bio5312_fall2017/files/examples/example_4c.pdf). <br> *Hint: you will need to specify a `group` aesthetic. See the documumentation for ggplot2 `geom_path`/`geom_line` at this link: http://ggplot2.tidyverse.org/reference/geom_path.html * 
+
+```{r}
+### Enter your code here.
+```
+
+
+<br>
+**Question 4d (10 pts).** Instead of merely showing the *means*, visualize the full distributions for the Tarsus Lengths across sexes and age. Make this plot for only the birds which survived. Make this figure two ways, using a grouped violin plot and then using a grouped boxplot. Which plot do you prefer for representing the data and why?  
+
+```{r}
+### Enter your code here.
+```
+
+**Explain your plot preference here.**
+
+
+
+
+
+
+
+
+
+
+

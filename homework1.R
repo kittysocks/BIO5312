@@ -1,6 +1,6 @@
 library(tidyverse)
 
-path_to_csv <-"Downloads/sparrows.csv"
+path_to_csv <-"sparrows.csv"
 print(path_to_csv)
 sparrows <- read.csv(path_to_csv)
 
