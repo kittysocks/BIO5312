@@ -95,3 +95,12 @@ dead_weight_hist <- hist(dead_weight,xlab="Weight of Dead Sparrows",ylab="Freque
                                                                           "palegreen3",
                                                                           "palegreen4"))
 
+
+#For me, the hist() function was more descriptive to see how weight is influential
+#of the survival status of the sparrows. The distribution of the alive sparrow's weight 
+#can be shown that it might be bi-modal, with the two modes seeming to be 24/25 and 27.
+#That means most of the alive sparrows were around 24/25 or 27.
+#The histogram for the dead sparrows weight shows it's uni-modal with most of the sparrows
+#being in the range of 24/25. 
+#Alive sparrows were definitely heavier Dead sparrows were lighter
+#The summary() showed that the means were almost identical.
