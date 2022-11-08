@@ -17,6 +17,7 @@ This homework again uses the **sparrows.csv** dataset we used in homework 1. To 
 
 ```{r}
 sparrows <- read.csv("sparrows.csv")
+head(sparrows)
 ```
 
 For each question, show your code and its output (i.e. do not add either `echo=FALSE` or `results="hide"` to your R chunk settings!). **Complete this assignment using `ggplot2` for visualization and `dplyr` with the `%>%` operator for data manipulation. Do not use base R indexing or plotting.** 
@@ -58,10 +59,31 @@ Make a scatterplot of sparrow skull lengths (response variable) against sparrow 
   + Set the point *size* based on wingspread. You may wish to include the `alpha` parameter when calling `geom_point()` for this plot.
 
 ```{r}
-### Enter your code here.
+#Version 1 (Color)
+c_skull_scatterplot <- ggplot(sparrows,aes(x=Skull_Width,y=Skull_Length))+
+  geom_point(aes(color=Wingspread))+
+  scale_color_gradient(low="orange",high="cyan")+
+  xlab("Skull Width of Sparrows") + ylab("Skull Length of Sparrows") +
+  ggtitle("Sparrow Skull Size Regarding Wingspread") +
+  theme(plot.title = element_text(hjust = 0.5))
+c_skull_scatterplot
 
-skull_scatterplot <- sparrows %>%
-  ggplot(aes(x=Skull_Length,y=Skull_Width)+geom_point)
+#Version 2 (Size)
+s_skull_scatterplot <- ggplot(sparrows,aes(x=Skull_Width,y=Skull_Length))+
+  geom_point(aes(size=Wingspread))+
+  scale_color_gradient(low="orange",high="cyan")+
+  xlab("Skull Width of Sparrows") + ylab("Skull Length of Sparrows") +
+  ggtitle("Sparrow Skull Size Regarding Wingspread") +
+  theme(plot.title = element_text(hjust = 0.5))
+s_skull_scatterplot
+
+#My own Version 3, both combined :)
+skull_scatterplot <- ggplot(sparrows,aes(x=Skull_Width,y=Skull_Length))+
+  geom_point(aes(color=Wingspread,size=Wingspread))+
+  scale_color_gradient(low="orange",high="cyan")+
+  xlab("Skull Width of Sparrows") + ylab("Skull Length of Sparrows") +
+  ggtitle("Sparrow Skull Size Regarding Wingspread") +
+  theme(plot.title = element_text(hjust = 0.5))
 skull_scatterplot
 
 ```
