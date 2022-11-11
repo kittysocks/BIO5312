@@ -78,6 +78,7 @@ s_skull_scatterplot <- ggplot(sparrows,aes(x=Skull_Width,y=Skull_Length))+
 s_skull_scatterplot
 
 #My own Version 3, both combined :)
+#Not the best way, a little messy but to me is aesthetically ok...
 skull_scatterplot <- ggplot(sparrows,aes(x=Skull_Width,y=Skull_Length))+
   geom_point(aes(color=Wingspread,size=Wingspread))+
   scale_color_gradient(low="orange",high="cyan")+
@@ -96,17 +97,38 @@ skull_scatterplot
 **Question 3a (5 pts).** Use `ggplot2` to make density plots (*hint: use the `alpha` parameter*) showing bird Weights for the Alive and Dead birds. 
 ```{r}
 ### Enter your code here.
+s_weight_dens <- ggplot(sparrows,aes(x=Weight, fill=Survival)) + geom_density(alpha=0.5) +
+  scale_fill_manual(values=c("limegreen","skyblue3")) +
+  xlab("Density of Weight") +
+  ylab("Weight of Sparrows") +
+  ggtitle("Alive and Dead Sparrow Weight Density ") +
+  theme(plot.title = element_text(hjust = 0.5))
+s_weight_dens
+
 ```
-
-
 
 <br>
 **Question 3b (5 pts).** We are also interested in viewing "bird BMI" (defined for birds as weight divided by length squared, or $weight/(length^2)$). Create a new BMI column in the sparrows data, and then make density plots of BMI for Alive vs Dead birds. Do you think bird BMI influenced survival? Explain why or why not in 1-2 sentences.
 ```{r}
-### Enter your code here.
+
+bird_BMI <- sparrows %>%
+  mutate(Weight/(Length^2)) %>%
+  rename("BMI"="Weight/(Length^2)")
+  
+BMI_density_plot <- bird_BMI %>%
+  ggplot(aes(x=BMI, fill=Survival)) + geom_density(alpha=0.5) +
+  scale_fill_manual(values=c("purple","yellow")) +
+  xlab("BMI of Sparrows") +
+  ylab("Density of BMI")
+
+BMI_density_plot
+
+
+
+
 ```
 
-**Explain why (not) BMI influenced survival here.**
+**It seems like BMI has a small impact on the survival status of the sparrows, as the density plots for both alive and dead sparrows are very similar. The alive sparrow's BMI seem to have almost two modes but the dead sparrow's BMI density seems to overlap both modes of the alive sparrow's BMI. I don't think BMI has an affect on survival status as much as weight does.**
 
 <br><br>
 
@@ -117,6 +139,11 @@ skull_scatterplot
 
 ```{r}
 ### Enter your code here.
+
+tarsus_sums <- sparrows %>%
+  group_by(Sex) %>%
+  summarize(Tarsus_Mean=mean(Tarsus_Length),Tarsus_SD=sd(Tarsus_Length))
+tarsus_sums
 ```
 
 <br>
@@ -124,6 +151,8 @@ skull_scatterplot
 
 ```{r}
 ### Enter your code here.
+
+
 ```
 
 
