@@ -151,7 +151,10 @@ tarsus_sums
 
 ```{r}
 ### Enter your code here.
-
+sex_age_tarsus <-sparrows %>%
+  group_by(Age,Sex) %>%
+  summarize(Tarsus_Mean=mean(Tarsus_Length),Tarsus_SD=sd(Tarsus_Length))
+sex_age_tarsus
 
 ```
 
@@ -161,6 +164,15 @@ tarsus_sums
 
 ```{r}
 ### Enter your code here.
+sparrows %>%
+  group_by(Age,Sex) %>%
+  summarize(mean_Tarsus_Length=mean(Tarsus_Length)) %>%
+  ggplot(aes(x=Sex,y=mean_Tarsus_Length,color=Age))+
+  geom_point(aes(group=Age,color=Age)) + 
+  geom_line(aes(group=Age,color=Age)) +
+  ylab("Mean Tarsus Length") +
+  theme_minimal()
+
 ```
 
 
@@ -169,6 +181,23 @@ tarsus_sums
 
 ```{r}
 ### Enter your code here.
+sparrows %>%
+  group_by(Age,Sex,Survival) %>%
+  summarize(Tarsus_Mean=mean(Tarsus_Length),Tarsus_SD=sd(Tarsus_Length)) %>%
+  filter(Survival=="Alive") %>%
+  ggplot(aes(y=Tarsus_SD,x=Sex)) +
+  geom_boxplot(aes(group=Age,color=Age))
+
+sparrows %>%
+  group_by(Age,Sex,Survival) %>%
+  summarize(Tarsus_Mean=mean(Tarsus_Length),Tarsus_SD=sd(Tarsus_Length)) %>%
+  filter(Survival=="Alive") %>%
+  ggplot(aes(y=Tarsus_SD,x=Sex)) +
+  geom_violin(aes(group=Age,color=Age))
+
+
+
+
 ```
 
 **Explain your plot preference here.**
